@@ -75,7 +75,7 @@ def _photon_geocode(q, lon, lat):
     if lon is not None and lat is not None:
         params["lon"] = lon
         params["lat"] = lat
-    r = httpx.get("https://photon.komoot.io/api/", params=params, timeout=8, headers={"User-Agent": "get-lost-maps"})
+    r = httpx.get("https://photon.komoot.io/api/", params=params, timeout=8, headers={"User-Agent": "adventure-maps"})
     r.raise_for_status()
     out = []
     for f in r.json().get("features", []):
