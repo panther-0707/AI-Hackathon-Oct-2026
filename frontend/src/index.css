@@ -1,2 +1,138 @@
-﻿html, body, #root { margin: 0; padding: 0; width: 100%; height: 100%; }
-body { font-family: system-ui, sans-serif; }
+﻿@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  --track: #e2e8f0;
+  --pop-bg: #ffffff;
+  --pop-border: #e2e8f0;
+}
+.dark {
+  --track: #27272a;
+  --pop-bg: #18181b;
+  --pop-border: #27272a;
+}
+
+html, body, #root { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
+body { @apply font-sans antialiased bg-slate-50 text-slate-900 dark:bg-zinc-950 dark:text-zinc-100; }
+
+/* thin scrollbars inside the floating panel */
+.scroll-thin { scrollbar-width: thin; scrollbar-color: #cbd5e1 transparent; }
+.dark .scroll-thin { scrollbar-color: #3f3f46 transparent; }
+
+/* ---------- time budget slider ---------- */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #6366f1) 0 0 / var(--fill, 50%) 100% no-repeat, var(--track);
+  cursor: pointer;
+  outline: none;
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #0ea5e9;
+  box-shadow: 0 0 0 4px rgb(14 165 233 / 0.2), 0 2px 8px rgb(0 0 0 / 0.3);
+  transition: box-shadow 0.15s;
+}
+.range::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #0ea5e9;
+  box-shadow: 0 0 0 4px rgb(14 165 233 / 0.2), 0 2px 8px rgb(0 0 0 / 0.3);
+}
+.range:hover::-webkit-slider-thumb,
+.range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 7px rgb(14 165 233 / 0.25), 0 2px 8px rgb(0 0 0 / 0.3); }
+
+/* ---------- map pins (the root element is positioned by MapLibre, so only .pin-body animates) ---------- */
+.pin { width: 32px; height: 32px; cursor: pointer; }
+.pin-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font: 600 13px/1 "JetBrains Mono", ui-monospace, monospace;
+  border: 2px solid #fff;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+.pin:hover .pin-body { transform: scale(1.12); }
+.pin-a .pin-body { background: #0ea5e9; box-shadow: 0 0 0 4px rgb(14 165 233 / 0.25), 0 6px 16px rgb(14 165 233 / 0.45); }
+.pin-b .pin-body { background: #6366f1; box-shadow: 0 0 0 4px rgb(99 102 241 / 0.25), 0 6px 16px rgb(99 102 241 / 0.45); }
+.pin.is-waiting .pin-body::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+  animation: pin-ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.pin-b.is-waiting .pin-body::after { border-color: #818cf8; }
+@keyframes pin-ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
+
+.pin-stop { width: 26px; height: 26px; }
+.pin-stop .pin-body {
+  background: #fff;
+  color: #0f172a;
+  font-size: 11px;
+  border-color: var(--cat, #0ea5e9);
+  box-shadow: 0 4px 12px rgb(15 23 42 / 0.25);
+}
+.dark .pin-stop .pin-body { background: #18181b; color: #f4f4f5; box-shadow: 0 4px 12px rgb(0 0 0 / 0.6); }
+.pin-stop.is-active .pin-body { background: #0ea5e9; color: #fff; border-color: #fff; transform: scale(1.3); }
+
+/* ---------- popups ---------- */
+.maplibregl-popup-content {
+  background: var(--pop-bg);
+  color: inherit;
+  border: 1px solid var(--pop-border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font-family: var(--font-sans);
+  box-shadow: 0 12px 32px -12px rgb(0 0 0 / 0.45);
+}
+[class*="maplibregl-popup-anchor-top"] .maplibregl-popup-tip { border-bottom-color: var(--pop-bg); }
+[class*="maplibregl-popup-anchor-bottom"] .maplibregl-popup-tip { border-top-color: var(--pop-bg); }
+.maplibregl-popup-anchor-left .maplibregl-popup-tip { border-right-color: var(--pop-bg); }
+.maplibregl-popup-anchor-right .maplibregl-popup-tip { border-left-color: var(--pop-bg); }
+.glm-popup { display: grid; gap: 4px; min-width: 140px; max-width: 220px; }
+.glm-popup-chip { font: 500 10px/1.4 var(--font-mono); text-transform: uppercase; letter-spacing: 0.06em; }
+.glm-popup-name { font-weight: 600; font-size: 13px; line-height: 1.3; }
+.glm-popup-score { font: 400 11px/1.4 var(--font-mono); color: #71717a; }
+
+/* ---------- MapLibre controls, themed ---------- */
+.maplibregl-ctrl-top-right { top: 72px; }
+.maplibregl-ctrl-group:not(:empty) {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background: rgb(255 255 255 / 0.85);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 24px -12px rgb(15 23 42 / 0.3);
+}
+.dark .maplibregl-ctrl-group:not(:empty) { background: rgb(9 9 11 / 0.8); border-color: #27272a; box-shadow: 0 8px 24px -12px #000; }
+.dark .maplibregl-ctrl-group button + button { border-top-color: #27272a; }
+.dark .maplibregl-ctrl-group button .maplibregl-ctrl-icon { filter: invert(1) brightness(0.85); }
+.dark .maplibregl-ctrl-group button:not(:disabled):hover { background-color: rgb(255 255 255 / 0.06); }
+.dark .maplibregl-ctrl.maplibregl-ctrl-attrib { background: rgb(9 9 11 / 0.75); color: #a1a1aa; }
+.dark .maplibregl-ctrl-attrib a { color: #a1a1aa; }
+.dark .maplibregl-ctrl-attrib-button { filter: invert(1); }
+@media (max-width: 767px) {
+  .maplibregl-ctrl-top-right { display: none; }
+}

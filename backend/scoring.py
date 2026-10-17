@@ -19,7 +19,9 @@ def category_of(tags):
     return None
 
 
-def score_places(places, vibes=None):
+def score_places(places, vibes=None, top_n=TOP_N, overflow=False):
+    """Best places first, at most PER_CATEGORY_CAP per category. With overflow=True the places
+    past the cap are appended (by score) instead of dropped, so there is always more to fill time with."""
     vibes = {**DEFAULT_VIBES, **(vibes or {})}
     scored = []
     for p in places:
@@ -39,10 +41,11 @@ def score_places(places, vibes=None):
         score = max(1, min(100, round(raw / MAX_RAW * 100)))
         scored.append({**p, "category": cat, "score": score, "name": t.get("name", "Street art")})
     scored.sort(key=lambda x: x["score"], reverse=True)
-    counts, kept = {}, []
+    counts, kept, spill = {}, [], []
     for p in scored:
         if counts.get(p["category"], 0) >= PER_CATEGORY_CAP:
+            spill.append(p)
             continue
         counts[p["category"]] = counts.get(p["category"], 0) + 1
         kept.append(p)
-    return kept[:TOP_N]
+    return (kept + spill if overflow else kept)[:top_n]
