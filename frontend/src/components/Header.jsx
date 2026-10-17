@@ -11,7 +11,7 @@ export default function Header({ dark, onToggleTheme, onDemo, step, done }) {
             <Compass className="w-5 h-5" strokeWidth={2.25} />
           </div>
           <span className="text-lg sm:text-xl font-extrabold tracking-tight bg-linear-to-r from-slate-900 to-slate-700 dark:from-white dark:to-zinc-400 bg-clip-text text-transparent">
-            Get-Lost Maps
+            Adventure Maps
           </span>
         </a>
 
