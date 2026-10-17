@@ -1,0 +1,6 @@
+﻿src = open("overpass.py", encoding="utf-8").read()
+src = src.replace("timeout=35)", "timeout=httpx.Timeout(15, connect=5))")
+src = src.replace("def _post(q, rounds=3):", "def _post(q, rounds=1):")
+src = src.replace("        time.sleep(4)\n", "")
+open("overpass.py", "w", encoding="utf-8").write(src)
+print("overpass.py patched")

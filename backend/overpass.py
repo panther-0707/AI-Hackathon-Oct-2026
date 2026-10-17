@@ -36,13 +36,12 @@ def _post(q, rounds=1):
     for attempt in range(rounds):
         for url in MIRRORS:
             try:
-                r = httpx.post(url, data={"data": q}, headers=HEADERS, timeout=35)
+                r = httpx.post(url, data={"data": q}, headers=HEADERS, timeout=httpx.Timeout(15, connect=5))
                 r.raise_for_status()
                 return r.json()
             except Exception as ex:
                 last = ex
                 print(f"[try {attempt + 1}] {url} -> {type(ex).__name__}")
-        time.sleep(4)
     raise last
 
 
