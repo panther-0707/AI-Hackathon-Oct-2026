@@ -1,7 +1,7 @@
 import time
 import httpx
 
-CONTACT = "yourname@gmail.com"
+CONTACT = "seeker0202@hotmail.com"
 HEADERS = {
     "User-Agent": f"GetLostMaps/0.1 (hackathon project; contact: {CONTACT})",
     "Accept": "*/*",

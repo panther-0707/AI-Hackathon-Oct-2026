@@ -3,7 +3,7 @@ from ors_places import fetch_places_ors
 from overpass import fetch_places as fetch_overpass
 
 WIKI = "https://en.wikipedia.org/w/api.php"
-UA = {"User-Agent": "GetLostMaps/0.1 (hackathon project; contact: YOUR-REAL-EMAIL)"}
+UA = {"User-Agent": "GetLostMaps/0.1 (hackathon project; contact: seeker0202@hotmail.com)"}
 _cache = {}
 
 
