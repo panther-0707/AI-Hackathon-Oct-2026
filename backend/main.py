@@ -1,4 +1,4 @@
-﻿import os
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -8,7 +8,7 @@ from plan import make_plan
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://get-lost-maps.*\.vercel\.app|http://localhost:5173|http://127\.0\.0\.1:5173",
+    allow_origin_regex=r"https://(get-lost-maps|ai-hackathon-oct-2026).*\.vercel\.app|http://localhost:5173|http://127\.0\.0\.1:5173",
     allow_methods=["*"],
     allow_headers=["*"],
 )
