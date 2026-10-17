@@ -27,10 +27,11 @@ function savedMapMode() {
 }
 
 // keep the route clear of the floating panel (left on desktop, bottom sheet on mobile)
-function fitPadding() {
+// `open` = whether the panel is expanded; a collapsed panel leaves the map nearly free
+function fitPadding(open = true) {
   return window.innerWidth >= 768
-    ? { top: 100, bottom: 60, left: 440, right: 80 }
-    : { top: 90, bottom: Math.round(window.innerHeight * 0.55) + 24, left: 30, right: 30 };
+    ? { top: 100, bottom: 60, left: open ? 440 : 340, right: 80 }
+    : { top: 90, bottom: open ? Math.round(window.innerHeight * 0.55) + 24 : 100, left: 30, right: 30 };
 }
 
 export default function App() {
@@ -49,6 +50,8 @@ export default function App() {
   const [result, setResult] = useState({ key: null, pointsKey: null, plan: null, error: "" });
   const [activeStop, setActiveStop] = useState(null);
   const [sheetOpen, setSheetOpen] = useState(true);
+  const sheetOpenRef = useRef(true); // read by map callbacks without re-subscribing
+  sheetOpenRef.current = sheetOpen;
 
   const [start, end] = points;
   const step = start && end ? 2 : start ? 1 : 0;
@@ -186,7 +189,7 @@ export default function App() {
       plan.route.coordinates.forEach((c) => b.extend(c));
       // geocoded points can sit off the walkable route (e.g. inside the castle), so keep the pins in view too
       [start, end].forEach((p) => p && b.extend(p.lonlat));
-      map.fitBounds(b, { padding: fitPadding(), duration: 800, maxZoom: 16.5 });
+      map.fitBounds(b, { padding: fitPadding(sheetOpenRef.current), duration: 800, maxZoom: 16.5 });
     }
   }, [plan, start, end]);
 
@@ -204,7 +207,7 @@ export default function App() {
     const map = mapRef.current;
     const marker = stopMarkers.current[i];
     if (!map || !marker) return;
-    map.flyTo({ center: marker.getLngLat(), zoom: Math.max(map.getZoom(), 16), duration: 700, padding: fitPadding() });
+    map.flyTo({ center: marker.getLngLat(), zoom: Math.max(map.getZoom(), 16), duration: 700, padding: fitPadding(sheetOpenRef.current) });
     stopMarkers.current.forEach((m, j) => j !== i && m.getPopup()?.isOpen() && m.togglePopup());
     if (!marker.getPopup().isOpen()) marker.togglePopup();
   }

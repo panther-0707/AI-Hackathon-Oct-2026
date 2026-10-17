@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUpDown, ChevronDown, ChevronUp, Clock, RotateCcw, Route, Sparkles } from "lucide-react";
+import { ArrowUpDown, ChevronDown, ChevronUp, Clock, PanelLeftClose, PanelLeftOpen, RotateCcw, Route, Sparkles } from "lucide-react";
 import AddressField from "./AddressField";
 import Results from "./Results";
 import { Eyebrow, IconButton, Section } from "./ui";
@@ -22,25 +22,27 @@ export default function Panel(props) {
 
   return (
     <aside
-      className="absolute z-20 flex flex-col overflow-hidden inset-x-0 bottom-0 max-h-[55dvh] rounded-t-3xl border-t
-        md:inset-x-auto md:left-4 md:top-20 md:bottom-auto md:w-[390px] md:max-h-[calc(100dvh-6rem)] md:rounded-2xl md:border
+      className={`absolute z-20 flex flex-col overflow-hidden inset-x-0 bottom-0 max-h-[55dvh] rounded-t-3xl border-t
+        md:inset-x-auto md:left-4 md:top-20 md:bottom-auto ${sheetOpen ? "md:w-[390px]" : "md:w-80"} md:max-h-[calc(100dvh-6rem)] md:rounded-2xl md:border
         border-slate-200 dark:border-zinc-800 bg-white/90 dark:bg-zinc-950/85 backdrop-blur-xl
-        shadow-2xl shadow-slate-900/15 dark:shadow-black/60"
+        shadow-2xl shadow-slate-900/15 dark:shadow-black/60`}
     >
       <button
         type="button"
         onClick={onToggleSheet}
         aria-expanded={sheetOpen}
-        className="md:hidden flex flex-col items-center gap-2 px-5 pt-2.5 pb-2 shrink-0"
+        aria-label={sheetOpen ? "Minimise panel" : "Expand panel"}
+        className={`flex flex-col items-center gap-2 px-5 pt-2.5 pb-2 md:py-3 shrink-0 ${sheetOpen ? "md:hidden" : ""}`}
       >
-        <span className="w-10 h-1 rounded-full bg-slate-300 dark:bg-zinc-700" />
-        <span className="w-full flex items-center justify-between text-sm font-medium">
+        <span className="md:hidden w-10 h-1 rounded-full bg-slate-300 dark:bg-zinc-700" />
+        <span className="w-full flex items-center justify-between gap-3 text-sm font-medium">
           {summary}
-          {sheetOpen ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronUp className="w-4 h-4 text-slate-400" />}
+          {sheetOpen ? <ChevronDown className="w-4 h-4 text-slate-400" /> : <ChevronUp className="md:hidden w-4 h-4 text-slate-400" />}
+          {!sheetOpen && <PanelLeftOpen className="hidden md:block w-4 h-4 shrink-0 text-slate-400" />}
         </span>
       </button>
 
-      <div className={`relative flex-1 flex-col overflow-y-auto scroll-thin ${sheetOpen ? "flex" : "hidden md:flex"}`}>
+      <div className={`relative flex-1 flex-col overflow-y-auto scroll-thin ${sheetOpen ? "flex" : "hidden"}`}>
         <div className="pointer-events-none absolute inset-x-0 top-0 h-56 bg-radial-[ellipse_at_top] from-sky-400/20 via-transparent to-transparent dark:from-sky-600/15" />
 
         {/* the pitch shrinks to a headline once there's a route to show; on mobile the sheet's summary row replaces it */}
@@ -51,11 +53,16 @@ export default function Panel(props) {
               Scenic detours that still arrive on time
             </div>
           )}
-          <h1 className="text-2xl font-bold tracking-tight leading-tight text-balance">
-            Take the{" "}
-            <span className="bg-linear-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">long way</span>{" "}
-            round
-          </h1>
+          <div className="flex items-start justify-between gap-3">
+            <h1 className="text-2xl font-bold tracking-tight leading-tight text-balance">
+              Take the{" "}
+              <span className="bg-linear-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">long way</span>{" "}
+              round
+            </h1>
+            <IconButton label="Minimise panel" onClick={onToggleSheet} aria-expanded={sheetOpen}>
+              <PanelLeftClose className="w-4 h-4" />
+            </IconButton>
+          </div>
           {step < 2 && (
             <p className="text-sm text-slate-600 dark:text-zinc-400 leading-relaxed">
               Tell us how long you've got. We fill it with the best views, parks, art and coffee between A and B.
