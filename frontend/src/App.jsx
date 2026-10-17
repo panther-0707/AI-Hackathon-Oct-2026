@@ -6,7 +6,7 @@ import { Legend, MapStyleSwitch, StatusPill } from "./components/MapOverlays";
 import Panel from "./components/Panel";
 import { API } from "./lib/api";
 import { addOverlay, basemap, fc, pin, stopPopup } from "./lib/mapOverlay";
-import { DEFAULT_VIBES, VIBE_BY_ID } from "./lib/vibes";
+import { VIBE_BY_ID } from "./lib/vibes";
 
 maplibregl.setWorkerUrl(workerUrl);
 
@@ -45,7 +45,6 @@ export default function App() {
   const [styleTick, setStyleTick] = useState(0);
   const [points, setPoints] = useState([null, null]); // [start, end], each { lonlat, label, detail? }
   const [minutes, setMinutes] = useState(40);
-  const [vibes, setVibes] = useState(DEFAULT_VIBES);
   const [retry, setRetry] = useState(0);
   const [result, setResult] = useState({ key: null, pointsKey: null, plan: null, error: "" });
   const [activeStop, setActiveStop] = useState(null);
@@ -54,9 +53,9 @@ export default function App() {
   const [start, end] = points;
   const step = start && end ? 2 : start ? 1 : 0;
 
-  // the last answer stays on screen (dimmed) while minutes/vibes re-plan, but not once A or B move
+  // the last answer stays on screen (dimmed) while minutes re-plan, but not once A or B move
   const pointsKey = start && end ? JSON.stringify([start.lonlat, end.lonlat]) : null;
-  const reqKey = pointsKey && JSON.stringify([pointsKey, minutes, vibes, retry]);
+  const reqKey = pointsKey && JSON.stringify([pointsKey, minutes, retry]);
   const loading = !!reqKey && result.key !== reqKey;
   const plan = pointsKey && result.pointsKey === pointsKey ? result.plan : null;
   const error = reqKey && result.key === reqKey ? result.error : "";
@@ -140,7 +139,7 @@ export default function App() {
         const res = await fetch(`${API}/plan`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ start: start.lonlat, end: end.lonlat, minutes, vibes }),
+          body: JSON.stringify({ start: start.lonlat, end: end.lonlat, minutes }),
           signal: ctrl.signal,
         });
         if (!res.ok) throw new Error(`Planner returned ${res.status}`);
@@ -157,7 +156,7 @@ export default function App() {
       clearTimeout(timer);
       ctrl.abort();
     };
-  }, [reqKey, pointsKey, start, end, minutes, vibes]);
+  }, [reqKey, pointsKey, start, end, minutes]);
 
   // 5. draw the plan's lines (again after a style switch)
   useEffect(() => {
@@ -253,8 +252,6 @@ export default function App() {
         getFocus={getFocus}
         minutes={minutes}
         onMinutes={setMinutes}
-        vibes={vibes}
-        onVibes={setVibes}
         onSwap={() => setPoints(([a, b]) => [b, a])}
         onReset={() => setPoints([null, null])}
         plan={plan}

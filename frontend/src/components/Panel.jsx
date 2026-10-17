@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ArrowUpDown, ChevronDown, ChevronUp, Clock, RotateCcw, Route, Sparkles } from "lucide-react";
-import { VIBES, nextWeight } from "../lib/vibes";
 import AddressField from "./AddressField";
 import Results from "./Results";
 import { Eyebrow, IconButton, Section } from "./ui";
@@ -13,7 +12,7 @@ const pctOf = (m) => ((m - MIN_MINUTES) / (MAX_MINUTES - MIN_MINUTES)) * 100;
 const clampMinutes = (m) => Math.min(MAX_MINUTES, Math.max(MIN_MINUTES, m));
 
 export default function Panel(props) {
-  const { start, end, step, onPoint, getFocus, minutes, onMinutes, vibes, onVibes, onSwap, onReset, plan, loading, sheetOpen, onToggleSheet } = props;
+  const { start, end, step, onPoint, getFocus, minutes, onMinutes, onSwap, onReset, plan, loading, sheetOpen, onToggleSheet } = props;
 
   const summary = loading
     ? "Planning your detour..."
@@ -130,18 +129,6 @@ export default function Panel(props) {
           </div>
         </Section>
 
-        <Section>
-          <div className="flex items-center justify-between mb-3">
-            <Eyebrow icon={Sparkles}>Vibes</Eyebrow>
-            <span className="font-mono text-[10px] text-slate-400 dark:text-zinc-500">tap: on → 2× → skip</span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {VIBES.map((v) => (
-              <VibeChip key={v.id} vibe={v} weight={vibes[v.id]} onClick={() => onVibes({ ...vibes, [v.id]: nextWeight(vibes[v.id]) })} />
-            ))}
-          </div>
-        </Section>
-
         <div className={step === 2 ? "max-md:order-first" : ""}>
           <Results {...props} />
         </div>
@@ -203,29 +190,5 @@ function MinutesInput({ minutes, onMinutes }) {
       />
       <span className="text-sm text-slate-500 dark:text-zinc-400">min</span>
     </label>
-  );
-}
-
-function VibeChip({ vibe, weight, onClick }) {
-  const { Icon } = vibe;
-  const state = weight === 2 ? "boosted" : weight === 1 ? "on" : "skipped";
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      aria-label={`${vibe.label}: ${state}`}
-      title={`${vibe.label}: ${state}`}
-      className={`inline-flex items-center gap-1.5 pl-2.5 pr-3 py-1.5 rounded-full border text-xs font-medium transition ${
-        weight === 2
-          ? "border-sky-500/50 bg-sky-500/10 text-sky-700 dark:text-sky-300 shadow-sm shadow-sky-500/20"
-          : weight === 1
-            ? "border-slate-300 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-slate-700 dark:text-zinc-200 hover:border-slate-400 dark:hover:border-zinc-600"
-            : "border-dashed border-slate-300 dark:border-zinc-800 text-slate-400 dark:text-zinc-600 hover:text-slate-600 dark:hover:text-zinc-400"
-      }`}
-    >
-      <Icon className="w-3.5 h-3.5" style={weight ? { color: vibe.color } : undefined} />
-      <span className={weight === 0 ? "line-through" : ""}>{vibe.label}</span>
-      {weight === 2 && <span className="font-mono text-[10px] leading-4 px-1 rounded bg-sky-500 text-white">2×</span>}
-    </button>
   );
 }
