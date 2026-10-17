@@ -1,0 +1,1547 @@
+[
+ {
+  "id": "2/4075023",
+  "lonlat": [
+   -3.188753,
+   55.943696
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "George Square Gardens"
+  }
+ },
+ {
+  "id": "2/4247170",
+  "lonlat": [
+   -3.209934,
+   55.945043
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Gardner's Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/4260486",
+  "lonlat": [
+   -3.20336,
+   55.947949
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Castle Terrace",
+   "website": "https://www.ncp.co.uk/find-a-car-park/car-parks/edinburgh-castle-terrace/"
+  }
+ },
+ {
+  "id": "2/4301292",
+  "lonlat": [
+   -3.20055,
+   55.948673
+  ],
+  "tags": {
+   "historic": "castle",
+   "name": "Edinburgh Castle",
+   "website": "https://www.edinburghcastle.scot/"
+  }
+ },
+ {
+  "id": "2/4330157",
+  "lonlat": [
+   -3.179645,
+   55.951865
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://www.canongatekirk.org.uk/",
+   "name": "Canongate Kirk"
+  }
+ },
+ {
+  "id": "2/4348244",
+  "lonlat": [
+   -3.201996,
+   55.939103
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Bruntsfield Links"
+  }
+ },
+ {
+  "id": "2/4447873",
+  "lonlat": [
+   -3.178051,
+   55.957945
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Hillside Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/4933268",
+  "lonlat": [
+   -3.207605,
+   55.951806
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Charlotte Square Gardens"
+  }
+ },
+ {
+  "id": "2/5182745",
+  "lonlat": [
+   -3.196284,
+   55.951688
+  ],
+  "tags": {
+   "tourism": "gallery",
+   "website": "https://www.royalscottishacademy.org/",
+   "name": "Royal Scottish Academy"
+  }
+ },
+ {
+  "id": "2/5182746",
+  "lonlat": [
+   -3.195623,
+   55.950889
+  ],
+  "tags": {
+   "tourism": "gallery",
+   "website": "https://www.nationalgalleries.org/",
+   "name": "National Gallery"
+  }
+ },
+ {
+  "id": "2/5352467",
+  "lonlat": [
+   -3.185268,
+   55.94538
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "3/5352478",
+  "lonlat": [
+   -3.187245,
+   55.947422
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Old College",
+   "website": "https://www.ed.ac.uk/"
+  }
+ },
+ {
+  "id": "2/5585005",
+  "lonlat": [
+   -3.193374,
+   55.951579
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "East Princes Street Gardens"
+  }
+ },
+ {
+  "id": "2/7841743",
+  "lonlat": [
+   -3.204904,
+   55.957943
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Circus Lane"
+  }
+ },
+ {
+  "id": "2/8043028",
+  "lonlat": [
+   -3.178851,
+   55.952125
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Dunbar's Close Garden"
+  }
+ },
+ {
+  "id": "2/17688596",
+  "lonlat": [
+   -3.179933,
+   55.94598
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Bauks View"
+  }
+ },
+ {
+  "id": "2/22412844",
+  "lonlat": [
+   -3.181726,
+   55.954749
+  ],
+  "tags": {
+   "historic": "monument",
+   "name": "National Monument of Scotland"
+  }
+ },
+ {
+  "id": "3/22414690",
+  "lonlat": [
+   -3.178686,
+   55.955404
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Regent Gardens"
+  }
+ },
+ {
+  "id": "2/22415647",
+  "lonlat": [
+   -3.177283,
+   55.957263
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "London Road Gardens"
+  }
+ },
+ {
+  "id": "2/23033313",
+  "lonlat": [
+   -3.215169,
+   55.950947
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Drumsheugh Gardens",
+   "website": "http://drumsheughgardens.org.uk/"
+  }
+ },
+ {
+  "id": "2/23102620",
+  "lonlat": [
+   -3.211723,
+   55.951926
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Randolph Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/23187947",
+  "lonlat": [
+   -3.208639,
+   55.95471
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Moray Place Gardens"
+  }
+ },
+ {
+  "id": "2/23187969",
+  "lonlat": [
+   -3.204469,
+   55.956744
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Royal Circus Gardens South"
+  }
+ },
+ {
+  "id": "2/23188013",
+  "lonlat": [
+   -3.204375,
+   55.957244
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Royal Circus Gardens North"
+  }
+ },
+ {
+  "id": "2/23188163",
+  "lonlat": [
+   -3.217515,
+   55.953151
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Belgrave Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/23246306",
+  "lonlat": [
+   -3.203212,
+   55.957219
+  ],
+  "tags": {
+   "leisure": "garden",
+   "website": "https://www.eastcircusplacegardens.co.uk/",
+   "name": "East Circus Place Gardens"
+  }
+ },
+ {
+  "id": "2/23246326",
+  "lonlat": [
+   -3.195174,
+   55.958577
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Drummond Place Gardens",
+   "website": "http://drummondplacegarden.org.uk/"
+  }
+ },
+ {
+  "id": "1/24952681",
+  "lonlat": [
+   -3.209382,
+   55.942804
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Edinburgh Quay"
+  }
+ },
+ {
+  "id": "1/25337477",
+  "lonlat": [
+   -3.207043,
+   55.944985
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Semple Street"
+  }
+ },
+ {
+  "id": "2/25946269",
+  "lonlat": [
+   -3.174461,
+   55.950573
+  ],
+  "tags": {
+   "tourism": "museum",
+   "website": "https://www.dynamicearth.org.uk/",
+   "name": "Dynamic Earth"
+  }
+ },
+ {
+  "id": "2/26564057",
+  "lonlat": [
+   -3.174688,
+   55.954718
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Regent Road Park"
+  }
+ },
+ {
+  "id": "2/26620853",
+  "lonlat": [
+   -3.180095,
+   55.94718
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/26621542",
+  "lonlat": [
+   -3.171034,
+   55.951008
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Broad Pavement"
+  }
+ },
+ {
+  "id": "2/27131915",
+  "lonlat": [
+   -3.184045,
+   55.946533
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Hill Square"
+  }
+ },
+ {
+  "id": "2/27248124",
+  "lonlat": [
+   -3.184996,
+   55.94812
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "The Edinburgh Tapestry Company"
+  }
+ },
+ {
+  "id": "2/27824052",
+  "lonlat": [
+   -3.183603,
+   55.961361
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Hopetoun Crescent Garden",
+   "website": "http://www.hopetouncrescentgarden.org.uk/"
+  }
+ },
+ {
+  "id": "2/27824062",
+  "lonlat": [
+   -3.18564,
+   55.959207
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Gayfield Square Garden"
+  }
+ },
+ {
+  "id": "2/30952180",
+  "lonlat": [
+   -3.209056,
+   55.948699
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Rutland Square Gardens"
+  }
+ },
+ {
+  "id": "2/30952181",
+  "lonlat": [
+   -3.211843,
+   55.948303
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Atholl Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/30952182",
+  "lonlat": [
+   -3.212305,
+   55.948551
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Coates Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/30971801",
+  "lonlat": [
+   -3.185845,
+   55.945005
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Edinburgh Central Mosque",
+   "website": "https://www.edmosque.org/"
+  }
+ },
+ {
+  "id": "2/32558648",
+  "lonlat": [
+   -3.186017,
+   55.945447
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "City of Edinburgh Methodist Church",
+   "website": "https://edinburghmethodist.com/"
+  }
+ },
+ {
+  "id": "1/33526703",
+  "lonlat": [
+   -3.209209,
+   55.958401
+  ],
+  "tags": {
+   "amenity": "cafe",
+   "name": "Singh Street Cha"
+  }
+ },
+ {
+  "id": "1/36581493",
+  "lonlat": [
+   -3.21394,
+   55.949658
+  ],
+  "tags": {
+   "historic": "monument",
+   "name": "Robert Viscount Melville"
+  }
+ },
+ {
+  "id": "1/37903880",
+  "lonlat": [
+   -3.191041,
+   55.945246
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/37995891",
+  "lonlat": [
+   -3.196634,
+   55.960399
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "King George V Park"
+  }
+ },
+ {
+  "id": "1/38026748",
+  "lonlat": [
+   -3.186333,
+   55.943188
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "40 George Square Bike Store"
+  }
+ },
+ {
+  "id": "2/39044819",
+  "lonlat": [
+   -3.193257,
+   55.95236
+  ],
+  "tags": {
+   "historic": "monument",
+   "name": "Scott Monument",
+   "website": "https://www.edinburghmuseums.org.uk/venue/scott-monument"
+  }
+ },
+ {
+  "id": "2/39967859",
+  "lonlat": [
+   -3.178012,
+   55.949736
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41274356",
+  "lonlat": [
+   -3.1857,
+   55.945938
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Nicolson Square Garden"
+  }
+ },
+ {
+  "id": "2/41292658",
+  "lonlat": [
+   -3.183425,
+   55.943179
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "St. Patrick Square Garden"
+  }
+ },
+ {
+  "id": "2/41294347",
+  "lonlat": [
+   -3.201171,
+   55.948278
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "New Barracks"
+  }
+ },
+ {
+  "id": "2/41299975",
+  "lonlat": [
+   -3.20172,
+   55.948764
+  ],
+  "tags": {
+   "tourism": "museum",
+   "name": "National War Museum",
+   "website": "https://www.nms.ac.uk/national-war-museum/"
+  }
+ },
+ {
+  "id": "2/41299976",
+  "lonlat": [
+   -3.201567,
+   55.949008
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Hospital"
+  }
+ },
+ {
+  "id": "2/41299978",
+  "lonlat": [
+   -3.201075,
+   55.94902
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Cartsheds"
+  }
+ },
+ {
+  "id": "2/41299983",
+  "lonlat": [
+   -3.201123,
+   55.948655
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Governor's House"
+  }
+ },
+ {
+  "id": "2/41299987",
+  "lonlat": [
+   -3.199714,
+   55.94884
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Portcullis Gate and Argyle Tower"
+  }
+ },
+ {
+  "id": "2/41299992",
+  "lonlat": [
+   -3.198653,
+   55.948514
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Gatehouse"
+  }
+ },
+ {
+  "id": "2/41379735",
+  "lonlat": [
+   -3.184416,
+   55.942228
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41404351",
+  "lonlat": [
+   -3.182957,
+   55.945523
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Life Church Edinburgh"
+  }
+ },
+ {
+  "id": "2/41424393",
+  "lonlat": [
+   -3.184803,
+   55.94413
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Buccleuch Free Church of Scotland"
+  }
+ },
+ {
+  "id": "2/41452827",
+  "lonlat": [
+   -3.186377,
+   55.94211
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Orthodox Church of St Andrew"
+  }
+ },
+ {
+  "id": "2/41454361",
+  "lonlat": [
+   -3.179628,
+   55.944695
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41558984",
+  "lonlat": [
+   -3.177598,
+   55.943056
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Holyrood Distillery",
+   "website": "https://www.holyrooddistillery.co.uk/"
+  }
+ },
+ {
+  "id": "2/41571916",
+  "lonlat": [
+   -3.175741,
+   55.951731
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Garden"
+  }
+ },
+ {
+  "id": "2/41601559",
+  "lonlat": [
+   -3.180363,
+   55.944676
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41712421",
+  "lonlat": [
+   -3.177585,
+   55.949461
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41712712",
+  "lonlat": [
+   -3.178093,
+   55.948752
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41712714",
+  "lonlat": [
+   -3.178147,
+   55.948552
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41712724",
+  "lonlat": [
+   -3.178046,
+   55.949177
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41743097",
+  "lonlat": [
+   -3.2058,
+   55.956598
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "India Street Gardens"
+  }
+ },
+ {
+  "id": "2/41858626",
+  "lonlat": [
+   -3.179883,
+   55.946666
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41858630",
+  "lonlat": [
+   -3.17836,
+   55.946697
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/41893740",
+  "lonlat": [
+   -3.173933,
+   55.952581
+  ],
+  "tags": {
+   "tourism": "museum",
+   "name": "The King's Gallery"
+  }
+ },
+ {
+  "id": "2/41893742",
+  "lonlat": [
+   -3.171592,
+   55.953141
+  ],
+  "tags": {
+   "historic": "ruins",
+   "name": "Holyrood Abbey"
+  }
+ },
+ {
+  "id": "2/41893746",
+  "lonlat": [
+   -3.171697,
+   55.952781
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Palace of Holyroodhouse Garden"
+  }
+ },
+ {
+  "id": "2/41908991",
+  "lonlat": [
+   -3.178251,
+   55.95206
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Lochend Close"
+  }
+ },
+ {
+  "id": "2/41974995",
+  "lonlat": [
+   -3.182487,
+   55.947183
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://www.salvationarmy.org.uk/edinburgh-city",
+   "name": "The Salvation Army"
+  }
+ },
+ {
+  "id": "2/42102522",
+  "lonlat": [
+   -3.183999,
+   55.949561
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/42135804",
+  "lonlat": [
+   -3.186018,
+   55.951814
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "New Street Car Park (for Waverley Station)"
+  }
+ },
+ {
+  "id": "2/42261848",
+  "lonlat": [
+   -3.186465,
+   55.949027
+  ],
+  "tags": {
+   "tourism": "museum",
+   "website": "https://www.stcecilias.ed.ac.uk/",
+   "name": "St Cecilia's Hall"
+  }
+ },
+ {
+  "id": "2/42407060",
+  "lonlat": [
+   -3.190847,
+   55.949428
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "St Giles' Cathedral",
+   "website": "https://www.stgilescathedral.org.uk/"
+  }
+ },
+ {
+  "id": "2/42861308",
+  "lonlat": [
+   -3.191279,
+   55.94761
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://www.augustine.org.uk/",
+   "name": "Augustine United Church"
+  }
+ },
+ {
+  "id": "2/42969074",
+  "lonlat": [
+   -3.194177,
+   55.948794
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "St Columba's Free Church",
+   "website": "https://stcolumbas.freechurch.org/"
+  }
+ },
+ {
+  "id": "2/44734597",
+  "lonlat": [
+   -3.195505,
+   55.9634
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Bridge Family Church and Community Centre"
+  }
+ },
+ {
+  "id": "2/53223368",
+  "lonlat": [
+   -3.203637,
+   55.958224
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://www.stvincentschapel.org.uk/",
+   "name": "St Vincent's Chapel"
+  }
+ },
+ {
+  "id": "1/60133881",
+  "lonlat": [
+   -3.179376,
+   55.951566
+  ],
+  "tags": {
+   "tourism": "artwork",
+   "name": "Robert Fergusson"
+  }
+ },
+ {
+  "id": "2/60982036",
+  "lonlat": [
+   -3.208368,
+   55.940972
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://www.fpchurch.org.uk/congregations/UK/Scotland/Edinburgh.php",
+   "name": "Gilmore Place Free Presbyterian Church of Scotland"
+  }
+ },
+ {
+  "id": "2/61888751",
+  "lonlat": [
+   -3.210596,
+   55.949405
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Charlotte Chapel",
+   "website": "https://www.charlottechapel.org/"
+  }
+ },
+ {
+  "id": "2/62061248",
+  "lonlat": [
+   -3.206488,
+   55.95004
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "Church of St John the Evangelist",
+   "website": "https://www.stjohns-edinburgh.org.uk/"
+  }
+ },
+ {
+  "id": "2/62061368",
+  "lonlat": [
+   -3.204989,
+   55.949667
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "website": "https://www.st-cuthberts.net/",
+   "name": "The Parish Church of St Cuthbert"
+  }
+ },
+ {
+  "id": "2/62066717",
+  "lonlat": [
+   -3.203038,
+   55.950063
+  ],
+  "tags": {
+   "amenity": "fountain",
+   "name": "Ross Fountain"
+  }
+ },
+ {
+  "id": "3/62066718",
+  "lonlat": [
+   -3.20304,
+   55.950063
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/69296178",
+  "lonlat": [
+   -3.19168,
+   55.94944
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "West Parliament Square"
+  }
+ },
+ {
+  "id": "2/70826506",
+  "lonlat": [
+   -3.18969,
+   55.951243
+  ],
+  "tags": {
+   "tourism": "gallery",
+   "website": "https://www.fruitmarket.co.uk/",
+   "name": "Fruitmarket"
+  }
+ },
+ {
+  "id": "2/70836441",
+  "lonlat": [
+   -3.189172,
+   55.951021
+  ],
+  "tags": {
+   "tourism": "gallery",
+   "website": "https://www.edinburghmuseums.org.uk/venue/city-art-centre",
+   "name": "City Art Centre"
+  }
+ },
+ {
+  "id": "2/70954978",
+  "lonlat": [
+   -3.184963,
+   55.950666
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "website": "https://www.scottishstorytellingcentre.com/",
+   "name": "Scottish Storytelling Centre"
+  }
+ },
+ {
+  "id": "2/70954995",
+  "lonlat": [
+   -3.179954,
+   55.951476
+  ],
+  "tags": {
+   "tourism": "museum",
+   "website": "https://www.edinburghmuseums.org.uk/Venues/The-People-s-Story",
+   "name": "The People's Story Museum"
+  }
+ },
+ {
+  "id": "2/70955003",
+  "lonlat": [
+   -3.180167,
+   55.951458
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "website": "https://www.tolboothtavern.co.uk/",
+   "name": "Tolbooth Tavern"
+  }
+ },
+ {
+  "id": "2/70955023",
+  "lonlat": [
+   -3.185568,
+   55.950971
+  ],
+  "tags": {
+   "tourism": "museum",
+   "name": "Trinity Apse"
+  }
+ },
+ {
+  "id": "2/70955026",
+  "lonlat": [
+   -3.185537,
+   55.950813
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "http://www.carrubbers.org/",
+   "name": "Carrubbers Christian Centre"
+  }
+ },
+ {
+  "id": "2/70955043",
+  "lonlat": [
+   -3.185251,
+   55.950949
+  ],
+  "tags": {
+   "historic": "memorial",
+   "name": "Scottish Book Trust"
+  }
+ },
+ {
+  "id": "2/71004550",
+  "lonlat": [
+   -3.190929,
+   55.952594
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/71004554",
+  "lonlat": [
+   -3.191406,
+   55.952393
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/71004559",
+  "lonlat": [
+   -3.191616,
+   55.952778
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/71004564",
+  "lonlat": [
+   -3.191784,
+   55.952637
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/71004577",
+  "lonlat": [
+   -3.190926,
+   55.952666
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/71234091",
+  "lonlat": [
+   -3.190051,
+   55.952635
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/73090302",
+  "lonlat": [
+   -3.19363,
+   55.955507
+  ],
+  "tags": {
+   "tourism": "gallery",
+   "website": "https://www.nationalgalleries.org/visit/scottish-national-portrait-gallery",
+   "name": "Scottish National Portrait Gallery"
+  }
+ },
+ {
+  "id": "2/75723585",
+  "lonlat": [
+   -3.198225,
+   55.962638
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Canonmills Baptist Church"
+  }
+ },
+ {
+  "id": "2/77770979",
+  "lonlat": [
+   -3.206851,
+   55.960399
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://www.stockbridgechurch.org.uk/",
+   "name": "Stockbridge Parish Church"
+  }
+ },
+ {
+  "id": "2/77771589",
+  "lonlat": [
+   -3.209183,
+   55.960669
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Saxe-Coburg Place Gardens"
+  }
+ },
+ {
+  "id": "2/78693281",
+  "lonlat": [
+   -3.193139,
+   55.954162
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "St Andrew Square Garden"
+  }
+ },
+ {
+  "id": "2/79622302",
+  "lonlat": [
+   -3.193636,
+   55.960795
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Bellevue Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/81093245",
+  "lonlat": [
+   -3.191599,
+   55.963605
+  ],
+  "tags": {
+   "leisure": "garden",
+   "name": "Claremont Crescent Gardens"
+  }
+ },
+ {
+  "id": "2/81243762",
+  "lonlat": [
+   -3.195859,
+   55.954044
+  ],
+  "tags": {
+   "tourism": "attraction",
+   "name": "New Town Church"
+  }
+ },
+ {
+  "id": "2/81250190",
+  "lonlat": [
+   -3.191614,
+   55.954462
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/84632972",
+  "lonlat": [
+   -3.215243,
+   55.953575
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "https://rhema-scotland.com/",
+   "name": "Rhema Church"
+  }
+ },
+ {
+  "id": "2/85163399",
+  "lonlat": [
+   -3.178333,
+   55.95323
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/87686765",
+  "lonlat": [
+   -3.197352,
+   55.951405
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/87686766",
+  "lonlat": [
+   -3.19705,
+   55.951128
+  ],
+  "tags": {
+   "historic": "memorial",
+   "name": "Royal Scots Monument"
+  }
+ },
+ {
+  "id": "2/87686771",
+  "lonlat": [
+   -3.1972,
+   55.951726
+  ],
+  "tags": {
+   "tourism": "artwork",
+   "name": "Floral Clock"
+  }
+ },
+ {
+  "id": "3/88190634",
+  "lonlat": [
+   -3.204346,
+   55.949638
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "West Princes Street Gardens"
+  }
+ },
+ {
+  "id": "2/88690124",
+  "lonlat": [
+   -3.196693,
+   55.946738
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/88693929",
+  "lonlat": [
+   -3.203076,
+   55.959614
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Silvermills Court"
+  }
+ },
+ {
+  "id": "2/89412005",
+  "lonlat": [
+   -3.174529,
+   55.954913
+  ],
+  "tags": {
+   "tourism": "artwork",
+   "name": "Stones of Scotland"
+  }
+ },
+ {
+  "id": "2/93227656",
+  "lonlat": [
+   -3.209042,
+   55.956396
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/93227660",
+  "lonlat": [
+   -3.209472,
+   55.956545
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/93227668",
+  "lonlat": [
+   -3.209002,
+   55.956817
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/93227675",
+  "lonlat": [
+   -3.20852,
+   55.95708
+  ],
+  "tags": {
+   "leisure": "garden"
+  }
+ },
+ {
+  "id": "2/93227676",
+  "lonlat": [
+   -3.208303,
+   55.956762
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/93234798",
+  "lonlat": [
+   -3.21148,
+   55.955277
+  ],
+  "tags": {
+   "historic": "monument",
+   "name": "St Bernard's Well"
+  }
+ },
+ {
+  "id": "2/93234809",
+  "lonlat": [
+   -3.208409,
+   55.957609
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Jubilee Gardens"
+  }
+ },
+ {
+  "id": "2/93234815",
+  "lonlat": [
+   -3.18522,
+   55.960548
+  ],
+  "tags": {
+   "historic": "church",
+   "name": "Anwar-E-Madina Mosque and Community Centre",
+   "website": "http://www.anwar-e-madina.co.uk/"
+  }
+ },
+ {
+  "id": "2/93611237",
+  "lonlat": [
+   -3.197256,
+   55.963797
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/98616658",
+  "lonlat": [
+   -3.207186,
+   55.95795
+  ],
+  "tags": {
+   "historic": "monument",
+   "name": "Old Stockbridge Market Entrance"
+  }
+ },
+ {
+  "id": "2/100007410",
+  "lonlat": [
+   -3.19398,
+   55.964139
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Broughton Road Park"
+  }
+ },
+ {
+  "id": "2/101594312",
+  "lonlat": [
+   -3.20015,
+   55.944525
+  ],
+  "tags": {
+   "historic": "church",
+   "website": "http://www.dar-alarqam.org/",
+   "name": "Dar Al-Arqam"
+  }
+ },
+ {
+  "id": "2/102306812",
+  "lonlat": [
+   -3.186608,
+   55.96093
+  ],
+  "tags": {
+   "leisure": "park"
+  }
+ },
+ {
+  "id": "2/103124753",
+  "lonlat": [
+   -3.213559,
+   55.945601
+  ],
+  "tags": {
+   "leisure": "park",
+   "name": "Leonardo Hotel"
+  }
+ }
+]
