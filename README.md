@@ -1,4 +1,4 @@
-# 🧭 Adventure-Maps-Hackathon
+# 🧭 Adventure-Maps
 
 **Take the long way round.** Pick a start, a destination and how much time you
 have, and Get-Lost Maps plans a walking route that weaves past the best street
