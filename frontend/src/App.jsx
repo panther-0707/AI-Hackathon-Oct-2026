@@ -1,102 +1,36 @@
 import { useEffect, useRef, useState } from "react";
 import * as maplibregl from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
-import "./App.css";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
+import Header from "./components/Header";
+import { Legend, MapStyleSwitch, StatusPill } from "./components/MapOverlays";
+import Panel from "./components/Panel";
+import { API } from "./lib/api";
+import { addOverlay, basemap, fc, pin, stopPopup } from "./lib/mapOverlay";
+import { DEFAULT_VIBES, VIBE_BY_ID } from "./lib/vibes";
 
 maplibregl.setWorkerUrl(workerUrl);
 
-const API = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
-const STYLE = "https://tiles.openfreemap.org/styles/liberty";
-const DEMO_START = { lonlat: [-3.1883, 55.952], label: "Waverley Station" };
-const DEMO_END = { lonlat: [-3.1999, 55.9486], label: "Edinburgh Castle (area)" };
+const DEMO = [
+  { lonlat: [-3.1883, 55.952], label: "Waverley Station" },
+  { lonlat: [-3.1999, 55.9486], label: "Edinburgh Castle (area)" },
+];
+const dropped = (lonlat) => ({ lonlat, label: "Dropped pin" });
 
-const fc = (geometry) => ({
-  type: "FeatureCollection",
-  features: geometry ? [{ type: "Feature", geometry, properties: {} }] : [],
-});
+const isDark = () => document.documentElement.classList.contains("dark");
 
-function pin(className, text) {
-  const el = document.createElement("div");
-  el.className = className;
-  el.textContent = text;
-  return el;
+function savedMapMode() {
+  try {
+    return localStorage.getItem("glm-map") === "classic" ? "classic" : "themed";
+  } catch {
+    return "themed";
+  }
 }
 
-function AddressInput({ label, text, setText, onPick, getFocus, placeholder }) {
-  const [results, setResults] = useState([]);
-  const [status, setStatus] = useState("");
-  const timer = useRef(null);
-  const reqId = useRef(0);
-
-  function search(v) {
-    clearTimeout(timer.current);
-    if (v.trim().length < 3) {
-      setResults([]);
-      setStatus("");
-      return;
-    }
-    timer.current = setTimeout(async () => {
-      const id = ++reqId.current;
-      setStatus("Searching...");
-      try {
-        const qs = new URLSearchParams({ q: v.trim() });
-        const f = getFocus && getFocus();
-        if (f) {
-          qs.set("lon", f[0]);
-          qs.set("lat", f[1]);
-        }
-        const res = await fetch(`${API}/geocode?${qs}`);
-        if (!res.ok) throw new Error("bad response");
-        const data = await res.json();
-        if (id !== reqId.current) return;
-        const list = data.results || [];
-        setResults(list);
-        setStatus(list.length ? "" : "No matches");
-      } catch {
-        if (id === reqId.current) {
-          setResults([]);
-          setStatus("Search unavailable");
-        }
-      }
-    }, 350);
-  }
-
-  function choose(r) {
-    clearTimeout(timer.current);
-    reqId.current++;
-    setResults([]);
-    setStatus("");
-    onPick({ lonlat: r.lonlat, label: r.label });
-  }
-
-  return (
-    <div className="field">
-      <label>{label}</label>
-      <input
-        type="text"
-        value={text}
-        placeholder={placeholder}
-        onChange={(e) => {
-          setText(e.target.value);
-          search(e.target.value);
-        }}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && results[0]) choose(results[0]);
-        }}
-      />
-      {status && <div className="small">{status}</div>}
-      {results.length > 0 && (
-        <ul className="sugg">
-          {results.map((r, i) => (
-            <li key={i}>
-              <button onClick={() => choose(r)}>{r.label}</button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
-  );
+// keep the route clear of the floating panel (left on desktop, bottom sheet on mobile)
+function fitPadding() {
+  return window.innerWidth >= 768
+    ? { top: 100, bottom: 60, left: 440, right: 80 }
+    : { top: 90, bottom: Math.round(window.innerHeight * 0.55) + 24, left: 30, right: 30 };
 }
 
 export default function App() {
@@ -104,222 +38,235 @@ export default function App() {
   const mapRef = useRef(null);
   const pickMarkers = useRef([]);
   const stopMarkers = useRef([]);
-  const clickRef = useRef(() => {});
-  const [loaded, setLoaded] = useState(false);
-  const [start, setStart] = useState(null);
-  const [end, setEnd] = useState(null);
-  const [startText, setStartText] = useState("");
-  const [endText, setEndText] = useState("");
+  const fittedPlan = useRef(null);
+  const [dark, setDark] = useState(isDark);
+  const [mapMode, setMapMode] = useState(savedMapMode);
+  const baseRef = useRef(basemap(mapMode, dark)); // the basemap currently loaded, read by style.load
+  const [styleTick, setStyleTick] = useState(0);
+  const [points, setPoints] = useState([null, null]); // [start, end], each { lonlat, label, detail? }
   const [minutes, setMinutes] = useState(40);
-  const [plan, setPlan] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [vibes, setVibes] = useState(DEFAULT_VIBES);
+  const [retry, setRetry] = useState(0);
+  const [result, setResult] = useState({ key: null, pointsKey: null, plan: null, error: "" });
+  const [activeStop, setActiveStop] = useState(null);
+  const [sheetOpen, setSheetOpen] = useState(true);
 
-  function getFocus() {
-    const c = mapRef.current && mapRef.current.getCenter();
-    return c ? [c.lng, c.lat] : null;
-  }
+  const [start, end] = points;
+  const step = start && end ? 2 : start ? 1 : 0;
 
-  function pickStart(p) {
-    setStart(p);
-    setStartText(p.label);
-    setError("");
-    if (!end && mapRef.current) mapRef.current.flyTo({ center: p.lonlat, zoom: 14 });
-  }
-
-  function pickEnd(p) {
-    setEnd(p);
-    setEndText(p.label);
-    setError("");
-    if (!start && mapRef.current) mapRef.current.flyTo({ center: p.lonlat, zoom: 14 });
-  }
-
-  clickRef.current = (lonlat) => {
-    const p = { lonlat, label: "Dropped pin" };
-    if (!start) pickStart(p);
-    else if (!end) pickEnd(p);
-    else {
-      setEnd(null);
-      setEndText("");
-      pickStart(p);
-    }
-  };
-
-  function useMyLocation() {
-    if (!navigator.geolocation) {
-      setError("Location is not available in this browser");
-      return;
-    }
-    navigator.geolocation.getCurrentPosition(
-      (pos) => pickStart({ lonlat: [pos.coords.longitude, pos.coords.latitude], label: "My location" }),
-      () => setError("Could not get your location"),
-      { enableHighAccuracy: true, timeout: 10000 }
-    );
-  }
-
-  function useDemo() {
-    setStart(DEMO_START);
-    setStartText(DEMO_START.label);
-    setEnd(DEMO_END);
-    setEndText(DEMO_END.label);
-    setError("");
-  }
-
-  function reset() {
-    setStart(null);
-    setEnd(null);
-    setStartText("");
-    setEndText("");
-    setPlan(null);
-    setError("");
-  }
+  // the last answer stays on screen (dimmed) while minutes/vibes re-plan, but not once A or B move
+  const pointsKey = start && end ? JSON.stringify([start.lonlat, end.lonlat]) : null;
+  const reqKey = pointsKey && JSON.stringify([pointsKey, minutes, vibes, retry]);
+  const loading = !!reqKey && result.key !== reqKey;
+  const plan = pointsKey && result.pointsKey === pointsKey ? result.plan : null;
+  const error = reqKey && result.key === reqKey ? result.error : "";
 
   // 1. create the map once
   useEffect(() => {
     const map = new maplibregl.Map({
       container: mapEl.current,
-      style: STYLE,
+      style: baseRef.current.url,
       center: [-3.19, 55.95],
       zoom: 14,
+      attributionControl: { compact: true },
     });
     mapRef.current = map;
     map.addControl(new maplibregl.NavigationControl(), "top-right");
-    map.on("load", () => {
-      map.addSource("ellipse", { type: "geojson", data: fc(null) });
-      map.addSource("boring", { type: "geojson", data: fc(null) });
-      map.addSource("route", { type: "geojson", data: fc(null) });
-      map.addLayer({ id: "ellipse-fill", type: "fill", source: "ellipse",
-        paint: { "fill-color": "#7c3aed", "fill-opacity": 0.12 } });
-      map.addLayer({ id: "ellipse-line", type: "line", source: "ellipse",
-        paint: { "line-color": "#7c3aed", "line-width": 2, "line-dasharray": [2, 2] } });
-      map.addLayer({ id: "boring-line", type: "line", source: "boring",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#9ca3af", "line-width": 5 } });
-      map.addLayer({ id: "route-glow", type: "line", source: "route",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#ff2d95", "line-width": 14, "line-blur": 8, "line-opacity": 0.5 } });
-      map.addLayer({ id: "route-line", type: "line", source: "route",
-        layout: { "line-cap": "round", "line-join": "round" },
-        paint: { "line-color": "#ff2d95", "line-width": 5 } });
-      setLoaded(true);
+    // fires on first load and after every basemap switch (setStyle wipes our layers)
+    map.on("style.load", () => {
+      addOverlay(map, baseRef.current.dark);
+      setStyleTick((t) => t + 1);
     });
-    map.on("click", (e) => clickRef.current([e.lngLat.lng, e.lngLat.lat]));
+    map.on("click", (e) => {
+      if (e.originalEvent.target.closest?.(".pin")) return; // clicks on pins open popups, not new points
+      const p = dropped([e.lngLat.lng, e.lngLat.lat]);
+      setPoints(([a, b]) => (!a ? [p, b] : !b ? [a, p] : [p, null]));
+    });
     return () => {
       map.remove();
       mapRef.current = null;
     };
   }, []);
 
-  // 2. A and B markers
+  // 2. theme: page class + saved choice
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", dark ? "#09090b" : "#f8fafc");
+    try {
+      localStorage.setItem("glm-theme", dark ? "dark" : "light");
+    } catch {
+      // storage blocked: the theme just won't be remembered
+    }
+  }, [dark]);
+
+  // 2b. basemap: classic, or light/dark following the theme
+  useEffect(() => {
+    try {
+      localStorage.setItem("glm-map", mapMode);
+    } catch {
+      // storage blocked: the map style just won't be remembered
+    }
+    const next = basemap(mapMode, dark);
+    if (baseRef.current.url === next.url) return;
+    baseRef.current = next;
+    mapRef.current?.setStyle(next.url, { diff: false });
+  }, [mapMode, dark]);
+
+  // 3. A and B markers (draggable)
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
     pickMarkers.current.forEach((m) => m.remove());
-    const list = [];
-    if (start) list.push([start.lonlat, "pin start", "A"]);
-    if (end) list.push([end.lonlat, "pin end", "B"]);
-    pickMarkers.current = list.map(([ll, cls, txt]) =>
-      new maplibregl.Marker({ element: pin(cls, txt) }).setLngLat(ll).addTo(map)
-    );
-  }, [start, end]);
+    pickMarkers.current = points.flatMap((p, i) => {
+      if (!p) return [];
+      const el = pin(i === 0 ? "a" : "b", i === 0 ? "A" : "B");
+      if (!points[1 - i]) el.classList.add("is-waiting");
+      const m = new maplibregl.Marker({ element: el, draggable: true }).setLngLat(p.lonlat).addTo(map);
+      m.on("dragend", () => {
+        const { lng, lat } = m.getLngLat();
+        setPoints((ps) => ps.map((q, j) => (j === i ? dropped([lng, lat]) : q)));
+      });
+      return [m];
+    });
+    map.getCanvas().style.cursor = points[0] && points[1] ? "" : "crosshair";
+  }, [points]);
 
-  // 3. call the backend (debounced 400 ms)
+  // 4. call the backend (debounced 400 ms)
   useEffect(() => {
-    if (!start || !end) {
-      setPlan(null);
-      return;
-    }
+    if (!reqKey) return;
     const ctrl = new AbortController();
     const timer = setTimeout(async () => {
-      setLoading(true);
-      setError("");
       try {
         const res = await fetch(`${API}/plan`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ start: start.lonlat, end: end.lonlat, minutes, vibes: {} }),
+          body: JSON.stringify({ start: start.lonlat, end: end.lonlat, minutes, vibes }),
           signal: ctrl.signal,
         });
-        if (!res.ok) throw new Error(`Server said ${res.status}`);
-        setPlan(await res.json());
+        if (!res.ok) throw new Error(`Planner returned ${res.status}`);
+        const data = await res.json();
+        setResult({ key: reqKey, pointsKey, plan: data, error: "" });
+        setActiveStop(null);
       } catch (err) {
-        if (err.name !== "AbortError") setError(String(err.message || err));
-      } finally {
-        if (!ctrl.signal.aborted) setLoading(false);
+        if (err.name === "AbortError") return;
+        const msg = err instanceof TypeError ? `Can't reach the planner at ${API}` : String(err.message || err);
+        setResult((r) => ({ ...r, key: reqKey, error: msg }));
       }
     }, 400);
     return () => {
       clearTimeout(timer);
       ctrl.abort();
     };
-  }, [start, end, minutes]);
+  }, [reqKey, pointsKey, start, end, minutes, vibes]);
 
-  // 4. draw the plan
+  // 5. draw the plan's lines (again after a style switch)
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !loaded) return;
-    map.getSource("ellipse").setData(fc(plan && plan.ellipse));
-    map.getSource("boring").setData(fc(plan && plan.boringRoute));
-    map.getSource("route").setData(fc(plan && plan.route));
-    stopMarkers.current.forEach((m) => m.remove());
-    stopMarkers.current = ((plan && plan.stops) || []).map((s, i) =>
-      new maplibregl.Marker({ element: pin("pin stop", String(i + 1)) })
-        .setLngLat(s.lonlat)
-        .setPopup(new maplibregl.Popup({ offset: 16 }).setText(s.name))
-        .addTo(map)
-    );
-    if (plan && plan.route) {
-      const ring = plan.ellipse ? plan.ellipse.coordinates[0] : plan.route.coordinates;
-      const b = new maplibregl.LngLatBounds();
-      ring.forEach((c) => b.extend(c));
-      map.fitBounds(b, { padding: 60, duration: 800 });
-    }
-  }, [plan, loaded]);
+    if (!map || !styleTick || !map.getSource("route")) return;
+    map.getSource("ellipse").setData(fc(plan?.ellipse));
+    map.getSource("boring").setData(fc(plan?.boringRoute));
+    map.getSource("route").setData(fc(plan?.route));
+  }, [plan, styleTick]);
 
-  const hint = !start
-    ? "Type a start address, or click the map"
-    : !end
-    ? "Now type a destination, or click the map"
-    : "Drag the slider to re-plan";
+  // 6. stop markers + fit the new route once
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    stopMarkers.current.forEach((m) => m.remove());
+    stopMarkers.current = (plan?.stops || []).map((s, i) => {
+      const el = pin("stop", String(i + 1), VIBE_BY_ID[s.category]?.color);
+      el.addEventListener("click", () => setActiveStop(i));
+      return new maplibregl.Marker({ element: el })
+        .setLngLat(s.lonlat)
+        .setPopup(new maplibregl.Popup({ offset: 18, closeButton: false }).setDOMContent(stopPopup(s)))
+        .addTo(map);
+    });
+    if (plan?.route && fittedPlan.current !== plan) {
+      fittedPlan.current = plan;
+      const b = new maplibregl.LngLatBounds();
+      plan.route.coordinates.forEach((c) => b.extend(c));
+      // geocoded points can sit off the walkable route (e.g. inside the castle), so keep the pins in view too
+      [start, end].forEach((p) => p && b.extend(p.lonlat));
+      map.fitBounds(b, { padding: fitPadding(), duration: 800, maxZoom: 16.5 });
+    }
+  }, [plan, start, end]);
+
+  // 7. highlight the selected stop
+  useEffect(() => {
+    stopMarkers.current.forEach((m, i) => {
+      const el = m.getElement();
+      el.classList.toggle("is-active", i === activeStop);
+      el.style.zIndex = i === activeStop ? "2" : "";
+    });
+  }, [activeStop, plan]);
+
+  function selectStop(i) {
+    setActiveStop(i);
+    const map = mapRef.current;
+    const marker = stopMarkers.current[i];
+    if (!map || !marker) return;
+    map.flyTo({ center: marker.getLngLat(), zoom: Math.max(map.getZoom(), 16), duration: 700, padding: fitPadding() });
+    stopMarkers.current.forEach((m, j) => j !== i && m.getPopup()?.isOpen() && m.togglePopup());
+    if (!marker.getPopup().isOpen()) marker.togglePopup();
+  }
+
+  function loadDemo() {
+    setPoints(DEMO);
+    setSheetOpen(true);
+    mapRef.current?.flyTo({ center: DEMO[0].lonlat, zoom: 14 });
+  }
+
+  // from the search boxes / "use my location"; the plan's fitBounds takes over once both are set
+  function setPoint(i, p) {
+    setPoints((ps) => ps.map((q, j) => (j === i ? p : q)));
+    if (p && !points[1 - i]) mapRef.current?.flyTo({ center: p.lonlat, zoom: 15 });
+  }
+
+  function getFocus() {
+    const c = mapRef.current?.getCenter();
+    return c ? [c.lng, c.lat] : null;
+  }
 
   return (
-    <div className="app">
-      <div ref={mapEl} className="map" />
-      <div className="panel">
-        <h1>{"\u{1F9ED}"} Get-Lost Maps</h1>
-        <p className="hint">{hint}</p>
-
-        <AddressInput label="Start" text={startText} setText={setStartText}
-          onPick={pickStart} getFocus={getFocus} placeholder="e.g. Waverley Station" />
-        <div className="row">
-          <button onClick={useMyLocation}>{"\u{1F4CD}"} Use my location</button>
-        </div>
-        <AddressInput label="Destination" text={endText} setText={setEndText}
-          onPick={pickEnd} getFocus={getFocus} placeholder="e.g. Edinburgh Castle" />
-
-        <label>Time available: <b>{minutes} min</b></label>
-        <input type="range" min="10" max="90" step="1" value={minutes}
-          onChange={(e) => setMinutes(Number(e.target.value))} />
-        <div className="row">
-          <button onClick={useDemo}>Edinburgh demo</button>
-          <button onClick={reset}>Reset</button>
-        </div>
-        {loading && <p>Planning...</p>}
-        {error && <p className="err">{error}</p>}
-        {plan && !loading && (
-          <div className="stats">
-            <div><span className="grey">Shortest</span> {plan.stats.boringMin} min</div>
-            <div><span className="neon">Yours</span> {plan.stats.ourMin} min - {plan.stats.stops} stops</div>
-            <div>{plan.stats.spareMin >= 0 ? `Arrive ${plan.stats.spareMin} min early` : `${-plan.stats.spareMin} min over budget`}</div>
-            {plan.message && <div className="msg">{plan.message}</div>}
-            <ol>
-              {plan.stops.map((s, i) => (
-                <li key={i}>{s.name} <small>{s.category}</small></li>
-              ))}
-            </ol>
-          </div>
-        )}
+    <div className="relative w-full h-full overflow-hidden">
+      {/* MapLibre forces position:relative on its container, so the wrapper does the positioning */}
+      <div className="absolute inset-0 bg-slate-100 dark:bg-zinc-900">
+        <div ref={mapEl} className="w-full h-full" />
       </div>
+
+      <Header
+        dark={dark}
+        onToggleTheme={() => setDark((d) => !d)}
+        onDemo={loadDemo}
+        step={step}
+        done={!!plan && !loading}
+      />
+      <StatusPill step={step} loading={loading} />
+      <MapStyleSwitch mode={mapMode} dark={dark} onChange={setMapMode} />
+      {plan && <Legend />}
+
+      <Panel
+        start={start}
+        end={end}
+        step={step}
+        onPoint={setPoint}
+        getFocus={getFocus}
+        minutes={minutes}
+        onMinutes={setMinutes}
+        vibes={vibes}
+        onVibes={setVibes}
+        onSwap={() => setPoints(([a, b]) => [b, a])}
+        onReset={() => setPoints([null, null])}
+        plan={plan}
+        loading={loading}
+        error={error}
+        onRetry={() => setRetry((r) => r + 1)}
+        onDemo={loadDemo}
+        activeStop={activeStop}
+        onSelectStop={selectStop}
+        sheetOpen={sheetOpen}
+        onToggleSheet={() => setSheetOpen((o) => !o)}
+      />
     </div>
   );
 }
