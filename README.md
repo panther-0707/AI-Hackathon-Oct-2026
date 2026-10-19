@@ -1,5 +1,7 @@
 # 🧭 Adventure-Maps
 
+AI-Hackathon-Oct-2026
+
 **Take the long way round.** Pick a start, a destination and how much time you
 have, and Get-Lost Maps plans a walking route that weaves past the best street
 art, viewpoints, parks, history and coffee on the way, and still gets you there
