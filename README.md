@@ -2,8 +2,10 @@
 
 AI-Hackathon-Oct-2026
 
+🌐 **Live demo:** [adventure-maps.vercel.app](https://adventure-maps.vercel.app/)
+
 **Take the long way round.** Pick a start, a destination and how much time you
-have, and Get-Lost Maps plans a walking route that weaves past the best street
+have, and Adventure Maps plans a walking route that weaves past the best street
 art, viewpoints, parks, history and coffee on the way, and still gets you there
 on time.
 
@@ -130,9 +132,9 @@ cd backend && python test_plan.py -3.1883 55.9520 -3.1999 55.9486 40
 
 The frontend is built for Vercel. Set `VITE_API_URL` to your backend's URL, and
 add your frontend's origin to the CORS settings in `backend/main.py` (Vercel
-project URLs matching `get-lost-maps` or `ai-hackathon-oct-2026`, plus any
-localhost port, are already allowed). The backend needs `ORS_API_KEY` set in
-its environment.
+project URLs matching `adventure-maps`, `get-lost-maps` or
+`ai-hackathon-oct-2026`, plus any localhost port, are allowed). The backend
+needs `ORS_API_KEY` set in its environment.
 
 ## Known limitations
 
